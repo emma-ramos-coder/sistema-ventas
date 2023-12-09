@@ -3,6 +3,8 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
  * Class Supplier
@@ -27,7 +29,7 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Supplier extends Model
 {
-    
+
     static $rules = [
 		'document_number' => 'required',
 		'document_type_id' => 'required',
@@ -52,26 +54,24 @@ class Supplier extends Model
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function articles()
+    public function articles():HasMany
     {
         return $this->hasMany('App\Models\Article', 'supplier_id', 'id');
     }
-    
+
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasOne
      */
-    public function city()
+    public function city():BelongsTo
     {
-        return $this->hasOne('App\Models\City', 'id', 'city_id');
+        return $this->belongsTo('App\Models\City', 'city_id', 'id');
     }
-    
+
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasOne
      */
-    public function documentType()
+    public function documentType():BelongsTo
     {
-        return $this->hasOne('App\Models\DocumentType', 'id', 'document_type_id');
+        return $this->belongsTo('App\Models\DocumentType', 'document_type_id', 'id');
     }
-    
+
 
 }

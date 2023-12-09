@@ -3,6 +3,8 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
  * Class Customer
@@ -27,7 +29,7 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Customer extends Model
 {
-    
+
     static $rules = [
 		'document_number' => 'required',
 		'document_type_id' => 'required',
@@ -49,36 +51,34 @@ class Customer extends Model
 
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     *
      */
-    public function city()
+    public function city():BelongsTo
     {
-        return $this->hasOne('App\Models\City', 'id', 'city_id');
+        return $this->belongsTo('App\Models\City', 'city_id', 'id');
     }
-    
+
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     *
      */
-    public function documentType()
+    public function documentType():BelongsTo
     {
-        return $this->hasOne('App\Models\DocumentType', 'id', 'document_type_id');
+        return $this->belongsTo('App\Models\DocumentType', 'document_type_id', 'id');
     }
-    
+
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function refunds()
+    public function refunds():HasMany
     {
-        return $this->hasMany('App\Models\Refund', 'customer_id', 'id');
+        return $this->hasMany(Refund::class, 'customer_id', 'id');
     }
-    
+
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function sales()
+    public function sales():HasMany
     {
-        return $this->hasMany('App\Models\Sale', 'customer_id', 'id');
+        return $this->hasMany(Sale::class, 'customer_id', 'id');
     }
-    
+
 
 }

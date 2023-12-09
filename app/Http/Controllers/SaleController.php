@@ -6,7 +6,10 @@ use App\Models\Customer;
 use App\Models\User;
 use App\Models\WayToPay;
 use App\Models\Sale;
+use App\Models\Article;
 use Illuminate\Http\Request;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
 
 /**
  * Class SaleController
@@ -14,6 +17,9 @@ use Illuminate\Http\Request;
  */
 class SaleController extends Controller
 {
+    public function __construct(){
+        $this->middleware('auth');
+    }
     /**
      * Display a listing of the resource.
      *
@@ -36,9 +42,10 @@ class SaleController extends Controller
     {
         $sale = new Sale();
         $customers = Customer::pluck('document_number','id');
-        $users = User::pluck('name','id');
+        $articles = Article::pluck('description','id');
+        //$users = User::pluck('name','id');
         $way_to_pays = WayToPay::pluck('way_to_pay_description','id');
-        return view('sale.create', compact('sale','customers','users','way_to_pays'));
+        return view('sale.create', compact('sale','customers','articles','way_to_pays'));
     }
 
     /**
@@ -51,7 +58,11 @@ class SaleController extends Controller
     {
         request()->validate(Sale::$rules);
 
-        $sale = Sale::create($request->all());
+        $sale = Sale::create($request->all()+['user_id'=>Auth::user()->id,'invoice_date'=>Carbon::now('America/Lima'),]);
+        foreach ($request->article_id as $key=>$product){
+            $results[] = array("article_id"=>$request->article_id[$key], "quantity"=>$request->quantity[$key], "price"=>$request->price[$key]);
+        }
+        $sale->saleDetails()->createMany($results);
 
         return redirect()->route('sales.index')
             ->with('success', 'Venta creada satisfactoriamente.');
@@ -81,8 +92,9 @@ class SaleController extends Controller
         $sale = Sale::find($id);
         $customers = Customer::pluck('document_number','id');
         $users = User::pluck('name','id');
+        $articles = Article::pluck('description','id');
         $way_to_pays = WayToPay::pluck('way_to_pay_description','id');
-        return view('sale.edit', compact('sale','customers','users','way_to_pays'));
+        return view('sale.edit', compact('sale','customers','users','articles','way_to_pays'));
     }
 
     /**
@@ -94,12 +106,12 @@ class SaleController extends Controller
      */
     public function update(Request $request, Sale $sale)
     {
-        request()->validate(Sale::$rules);
+        /* request()->validate(Sale::$rules);
 
         $sale->update($request->all());
 
         return redirect()->route('sales.index')
-            ->with('success', 'Venta actualizada satisfactoriamente');
+            ->with('success', 'Venta actualizada satisfactoriamente'); */
     }
 
     /**
@@ -109,9 +121,9 @@ class SaleController extends Controller
      */
     public function destroy($id)
     {
-        $sale = Sale::find($id)->delete();
+        /* $sale = Sale::find($id)->delete();
 
         return redirect()->route('sales.index')
-            ->with('success', 'Venta eliminada satisfactoriamente');
+            ->with('success', 'Venta eliminada satisfactoriamente'); */
     }
 }

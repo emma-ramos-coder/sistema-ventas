@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
  * Class DocumentType
@@ -19,7 +20,7 @@ use Illuminate\Database\Eloquent\Model;
  */
 class DocumentType extends Model
 {
-    
+
     static $rules = [
 		'description' => 'required',
     ];
@@ -37,18 +38,18 @@ class DocumentType extends Model
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function customers()
+    public function customers():HasMany
     {
         return $this->hasMany('App\Models\Customer', 'document_type_id', 'id');
     }
-    
+
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function suppliers()
+    public function suppliers():HasMany
     {
         return $this->hasMany('App\Models\Supplier', 'document_type_id', 'id');
     }
-    
+
 
 }

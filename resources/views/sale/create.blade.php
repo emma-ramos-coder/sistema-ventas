@@ -12,17 +12,23 @@
                 @includeif('partials.errors')
 
                 <div class="card card-default">
-                    <div class="card-header">
-                        <span class="card-title">{{ __('Create') }} {{__('Sale')}}</span>
-                    </div>
-                    <div class="card-body">
-                        <form method="POST" action="{{ route('sales.store') }}"  role="form" enctype="multipart/form-data">
-                            @csrf
+                    <form method="POST" action="{{ route('sales.store') }}"  role="form" enctype="multipart/form-data">
+                        <div class="card-header">
+                            <span class="card-title">{{ __('Create') }} {{__('Sale')}}</span>
+                        </div>
+                        <div class="card-body">
 
-                            @include('sale.form')
+                                @csrf
 
-                        </form>
-                    </div>
+                                @include('sale.form')
+
+
+                        </div>
+                        <div class="card-footer">
+                            <button type="submit" id="guardar" class="btn btn-primary">Registrar</button>
+                            <a href="{{ route('sales.index') }}" class="btn btn-danger">Cancelar</a>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>

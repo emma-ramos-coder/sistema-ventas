@@ -1,8 +1,9 @@
 <?php
-
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
  * Class Article
@@ -27,7 +28,7 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Article extends Model
 {
-    
+
     static $rules = [
 		'description' => 'required',
 		'sale_price' => 'required',
@@ -49,36 +50,36 @@ class Article extends Model
 
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     *
      */
-    public function itemType()
+    public function itemType():BelongsTo
     {
-        return $this->hasOne('App\Models\ItemType', 'id', 'item_type_id');
+        return $this->belongsTo('App\Models\ItemType', 'item_type_id', 'id');
     }
-    
+
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     *
      */
-    public function refundDetails()
+    public function refundDetails():HasMany
     {
         return $this->hasMany('App\Models\RefundDetail', 'article_id', 'id');
     }
-    
+
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function saleDetails()
+    public function saleDetails():HasMany
     {
         return $this->hasMany('App\Models\SaleDetail', 'article_id', 'id');
     }
-    
+
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+     *
      */
-    public function supplier()
+    public function supplier():BelongsTo
     {
-        return $this->hasOne('App\Models\Supplier', 'id', 'supplier_id');
+        return $this->belongsTo('App\Models\Supplier', 'supplier_id', 'id');
     }
-    
+
 
 }

@@ -10,6 +10,7 @@ use App\Http\Controllers\SaleController;
 use App\Http\Controllers\SaleDetailController;
 use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\WayToPayController;
+use App\Http\Controllers\ReportController;
 use App\Models\DocumentType;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
@@ -23,6 +24,16 @@ use Illuminate\Support\Facades\Auth;
 Route::get('/', function () {
     return view('welcome');
 });
+Route::get('reportes/r1', [ReportController::class,'generar1'])->middleware('auth');
+Route::get('reportes/r2', [ReportController::class,'generar2'])->middleware('auth');
+Route::get('reportes/r3', [ReportController::class,'generar3'])->middleware('auth');
+Route::get('reportes/r4', [ReportController::class,'generar4'])->middleware('auth');
+Route::get('reportes/r5', [ReportController::class,'generar5'])->middleware('auth');
+Route::get('reportes/r6', [ReportController::class,'generar6'])->middleware('auth');
+Route::get('reportes/r7', [ReportController::class,'generar7'])->middleware('auth');
+Route::get('reportes/r8', [ReportController::class,'generar8'])->middleware('auth');
+Route::get('reportes/r9', [ReportController::class,'generar9'])->middleware('auth');
+
 Route::resource('document-types',DocumentTypeController::class)->middleware('auth');
 Route::resource('cities',CityController::class)->middleware('auth');
 Route::resource('item-types',ItemTypeController::class)->middleware('auth');

@@ -3,6 +3,8 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
  * Class Sale
@@ -27,7 +29,7 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Sale extends Model
 {
-    
+
     static $rules = [
 		'customer_id' => 'required',
 		'user_id' => 'required',
@@ -48,44 +50,43 @@ class Sale extends Model
 
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasOne
      */
-    public function customer()
+    public function customer():BelongsTo
     {
-        return $this->hasOne('App\Models\Customer', 'id', 'customer_id');
+        return $this->belongsTo('App\Models\Customer', 'customer_id','id');
     }
-    
+
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function refunds()
+    public function refunds():HasMany
     {
         return $this->hasMany('App\Models\Refund', 'sale_id', 'id');
     }
-    
+
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function saleDetails()
+    public function saleDetails():HasMany
     {
         return $this->hasMany('App\Models\SaleDetail', 'sale_id', 'id');
     }
-    
+
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasOne
      */
-    public function user()
+    public function user():BelongsTo
     {
-        return $this->hasOne('App\Models\User', 'id', 'user_id');
+        return $this->belongsTo('App\Models\User', 'user_id','id');
     }
-    
+
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasOne
      */
-    public function wayToPay()
+    public function wayToPay():BelongsTo
     {
-        return $this->hasOne('App\Models\WayToPay', 'id', 'way_to_pay_id');
+        return $this->belongsTo('App\Models\WayToPay', 'way_to_pay_id','id');
     }
-    
+
 
 }

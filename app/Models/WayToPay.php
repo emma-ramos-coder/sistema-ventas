@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
  * Class WayToPay
@@ -19,7 +20,7 @@ use Illuminate\Database\Eloquent\Model;
  */
 class WayToPay extends Model
 {
-    
+
     static $rules = [
 		'way_to_pay_description' => 'required',
     ];
@@ -37,18 +38,18 @@ class WayToPay extends Model
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function refunds()
+    public function refunds():HasMany
     {
         return $this->hasMany('App\Models\Refund', 'way_to_pay_id', 'id');
     }
-    
+
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function sales()
+    public function sales():HasMany
     {
         return $this->hasMany('App\Models\Sale', 'way_to_pay_id', 'id');
     }
-    
+
 
 }

@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
  * Class SaleDetail
@@ -22,7 +23,7 @@ use Illuminate\Database\Eloquent\Model;
  */
 class SaleDetail extends Model
 {
-    
+
     static $rules = [
 		'sale_id' => 'required',
 		'article_id' => 'required',
@@ -41,20 +42,18 @@ class SaleDetail extends Model
 
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasOne
      */
-    public function article()
+    public function article():BelongsTo
     {
-        return $this->hasOne('App\Models\Article', 'id', 'article_id');
+        return $this->belongsTo('App\Models\Article', 'article_id', 'id');
     }
-    
+
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasOne
      */
-    public function sale()
+    public function sale():BelongsTo
     {
-        return $this->hasOne('App\Models\Sale', 'id', 'sale_id');
+        return $this->belongsTo('App\Models\Sale', 'sale_id', 'id');
     }
-    
+
 
 }

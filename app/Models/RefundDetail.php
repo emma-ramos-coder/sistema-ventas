@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 /**
  * Class RefundDetail
@@ -22,7 +23,7 @@ use Illuminate\Database\Eloquent\Model;
  */
 class RefundDetail extends Model
 {
-    
+
     static $rules = [
 		'refund_id' => 'required',
 		'article_id' => 'required',
@@ -41,20 +42,18 @@ class RefundDetail extends Model
 
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasOne
      */
-    public function article()
+    public function article():BelongsTo
     {
-        return $this->hasOne('App\Models\Article', 'id', 'article_id');
+        return $this->belonsTo('App\Models\Article', 'article_id', 'id');
     }
-    
+
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasOne
      */
-    public function refund()
+    public function refund():BelongsTo
     {
-        return $this->hasOne('App\Models\Refund', 'id', 'refund_id');
+        return $this->belongsTo('App\Models\Refund', 'refund_id', 'id');
     }
-    
+
 
 }

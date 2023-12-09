@@ -3,6 +3,9 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 
 /**
  * Class Refund
@@ -29,7 +32,7 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Refund extends Model
 {
-    
+
     static $rules = [
 		'sale_id' => 'required',
 		'customer_id' => 'required',
@@ -52,44 +55,42 @@ class Refund extends Model
 
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+
      */
-    public function customer()
+    public function customer():BelongsTo
     {
-        return $this->hasOne('App\Models\Customer', 'id', 'customer_id');
+        return $this->belongsTo('App\Models\Customer', 'customer_id', 'id');
     }
-    
+
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function refundDetails()
+    public function refundDetails():HasMany
     {
         return $this->hasMany('App\Models\RefundDetail', 'refund_id', 'id');
     }
-    
+
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasOne
-     */
-    public function sale()
+    */
+    public function sale():BelongsTo
     {
-        return $this->hasOne('App\Models\Sale', 'id', 'sale_id');
+        return $this->belongsTo('App\Models\Sale', 'sale_id', 'id');
     }
-    
+
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasOne
      */
-    public function user()
+    public function user():BelongsTo
     {
-        return $this->hasOne('App\Models\User', 'id', 'user_id');
+        return $this->belongsTo('App\Models\User', 'user_id', 'id');
     }
-    
+
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasOne
+
      */
-    public function wayToPay()
+    public function wayToPay():BelongsTo
     {
-        return $this->hasOne('App\Models\WayToPay', 'id', 'way_to_pay_id');
+        return $this->belongsTo('App\Models\WayToPay', 'way_to_pay_id', 'id');
     }
-    
+
 
 }

@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 
 /**
  * Class ItemType
@@ -18,7 +19,7 @@ use Illuminate\Database\Eloquent\Model;
  */
 class ItemType extends Model
 {
-    
+
     static $rules = [
 		'item_type_description' => 'required',
     ];
@@ -34,12 +35,11 @@ class ItemType extends Model
 
 
     /**
-     * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function articles()
+    public function articles():HasMany
     {
         return $this->hasMany('App\Models\Article', 'item_type_id', 'id');
     }
-    
+
 
 }
