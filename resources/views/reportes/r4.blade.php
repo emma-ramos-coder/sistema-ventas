@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Reporte de productos</title>
+    <title>Ventas por día</title>
     <style>
         body {
             position: relative;
@@ -63,22 +63,18 @@
 </head>
 <body>
     <div id="logo"> <img src="img/logoDSI.jpg" alt="logo DSI"> </div>
-    <h2>Reporte de productos</h2>
-    <p>Reporte de productos, precio de venta  y stock</p>
+    <h2>Ventas por día</h2>
+    <p>Reporte de las ventas realizadas cada día</p>
     <br><br>
     <table>
         <tr>
-            <th>ID</th>
-            <th>Descripción</th>
-            <th>Precio de venta (S/)</th>
-            <th>Stock</th>
+            <th>Fecha</th>
+            <th>Monto de ventas (S/)</th>
         </tr>
-        @foreach($productos as $p)
+        @foreach($ventas as $v)
         <tr>
-            <td>{{ $p->id }}</td>
-            <td>{{ $p->description }}</td>
-            <td>{{ $p->sale_price }}</td>
-            <td>{{ $p->stock }}</td>
+            <td>{{ $v->invoice_date }}</td>
+            <td>{{ $v->total }}</td>
         </tr>
         @endforeach
     </table>

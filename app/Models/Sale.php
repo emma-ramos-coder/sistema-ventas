@@ -32,7 +32,6 @@ class Sale extends Model
 
     static $rules = [
 		'customer_id' => 'required',
-		'user_id' => 'required',
 		'invoice_date' => 'required',
 		'way_to_pay_id' => 'required',
 		'total_invoice' => 'required',

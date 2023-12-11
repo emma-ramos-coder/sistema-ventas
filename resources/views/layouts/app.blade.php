@@ -12,9 +12,19 @@
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
 
     <!-- Scripts -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.16/dist/sweetalert2.all.min.js"></script>
+
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
+    @push('scripts')
+        <script src="{{ asset('js/mi-script.js') }}"></script>
+    @endpush
+    @stack('scripts')
 </head>
 <body>
     <div id="app">
@@ -77,34 +87,34 @@
                             {{ __('Consultas') }}
                         </a>
                         <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="#">
+                            <a class="dropdown-item" href=" {{ route('reportes.r1') }} ">
                                 {{ __('Productos vendidos') }}
                             </a>
-                            <a class="dropdown-item" href="#">
+                            <a class="dropdown-item" href=" {{ route('reportes.r2') }} ">
                                 {{ __('Precios de productos') }}
                             </a>
-                            <a class="dropdown-item" href="#">
+                            <a class="dropdown-item" href=" {{ route('reportes.r3') }} ">
                                 {{ __('Productos sin stock') }}
                             </a>
-                            <a class="dropdown-item" href="#">
-                                {{ __('Ventas por periodo') }}
+                            <a class="dropdown-item" href=" {{ route('reportes.r4') }} ">
+                                {{ __('Ventas por día') }}
                             </a>
-                            <a class="dropdown-item" href="#">
+                            <a class="dropdown-item" href=" {{ route('reportes.r5') }} ">
                                 {{ __('Ventas por cliente') }}
                             </a>
-                            <a class="dropdown-item" href="#">
+                            <a class="dropdown-item" href=" {{ route('reportes.r6') }} ">
                                 {{ __('Ventas por proveedor') }}
                             </a>
-                            <a class="dropdown-item" href="#">
+                            <a class="dropdown-item" href=" {{ route('reportes.r7') }} ">
                                 {{ __('Clientes por ciudad') }}
                             </a>
-                            <a class="dropdown-item" href="#">
+                            <a class="dropdown-item" href=" {{ route('reportes.r8') }} ">
                                 {{ __('Ventas por forma de pago') }}
                             </a>
-                            <a class="dropdown-item" href="#">
+                            <a class="dropdown-item" href=" {{ route('reportes.r9') }} ">
                                 {{ __('Productos por categoria') }}
                             </a>
-                            <a class="dropdown-item" href="#">
+                            <a class="dropdown-item" href=" {{ route('reportes.r10') }} ">
                                 {{ __('Ventas por usuario') }}
                             </a>
                         </div>

@@ -7,9 +7,13 @@ use App\Models\User;
 use App\Models\WayToPay;
 use App\Models\Sale;
 use App\Models\Article;
+use App\Models\SaleDetail;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
+
+use App\Http\Controllers\DB;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 /**
  * Class SaleController
@@ -20,11 +24,7 @@ class SaleController extends Controller
     public function __construct(){
         $this->middleware('auth');
     }
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function index()
     {
         $sales = Sale::paginate();
@@ -33,97 +33,77 @@ class SaleController extends Controller
             ->with('i', (request()->input('page', 1) - 1) * $sales->perPage());
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
         $sale = new Sale();
         $customers = Customer::pluck('document_number','id');
-        $articles = Article::pluck('description','id');
+        $articles = Article::get();
         //$users = User::pluck('name','id');
         $way_to_pays = WayToPay::pluck('way_to_pay_description','id');
         return view('sale.create', compact('sale','customers','articles','way_to_pays'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
         request()->validate(Sale::$rules);
 
-        $sale = Sale::create($request->all()+['user_id'=>Auth::user()->id,'invoice_date'=>Carbon::now('America/Lima'),]);
-        foreach ($request->article_id as $key=>$product){
-            $results[] = array("article_id"=>$request->article_id[$key], "quantity"=>$request->quantity[$key], "price"=>$request->price[$key]);
+        $sale = Sale::create($request->all()+['user_id'=>Auth::user()->id]);
+
+        $saleDetails = [];
+        foreach ($request->article_id as $key => $product) {
+            $saleDetails[] = new SaleDetail([
+                "article_id" => $request->article_id[$key],
+                "quantity" => $request->quantity[$key],
+                "price" => $request->price[$key]
+            ]);
+
+             // Obtener el producto por su ID para actualizar stock
+            $article = Article::find($request->article_id[$key]);
+            // Verificar si el producto existe y restar la cantidad vendida del stock
+            if ($article) {
+                $newStock = $article->stock - $request->quantity[$key];
+                $article->update(['stock' => $newStock]);
+            }
         }
-        $sale->saleDetails()->createMany($results);
+        $sale->saleDetails()->saveMany($saleDetails);
 
         return redirect()->route('sales.index')
             ->with('success', 'Venta creada satisfactoriamente.');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int $id
-     * @return \Illuminate\Http\Response
-     */
-    public function show($id)
-    {
-        $sale = Sale::find($id);
 
-        return view('sale.show', compact('sale'));
+    public function show(Sale $sale)
+    {
+        $subtotal=0;
+        $saleDetails = $sale->saleDetails;
+        foreach ($saleDetails as $saleDetail){
+            $subtotal += $saleDetail->quantity * $saleDetail->price;
+        }
+
+        return view('sale.show', compact('sale','saleDetails','subtotal'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit($id)
+    public function pdf(Sale $sale)
     {
-        $sale = Sale::find($id);
-        $customers = Customer::pluck('document_number','id');
-        $users = User::pluck('name','id');
-        $articles = Article::pluck('description','id');
-        $way_to_pays = WayToPay::pluck('way_to_pay_description','id');
-        return view('sale.edit', compact('sale','customers','users','articles','way_to_pays'));
+        $subtotal=0;
+        $saleDetails = $sale->saleDetails;
+        foreach ($saleDetails as $saleDetail){
+            $subtotal += $saleDetail->quantity * $saleDetail->price;
+        }
+
+        $view = \View::make('sale/pdf',compact('sale', 'subtotal', 'saleDetails'))->render();
+            $pdf = \App::make('dompdf.wrapper');
+            $pdf->loadHTML($view);
+            return $pdf->stream('informe'.'.pdf');
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request $request
-     * @param  Sale $sale
-     * @return \Illuminate\Http\Response
-     */
+
     public function update(Request $request, Sale $sale)
     {
-        /* request()->validate(Sale::$rules);
-
-        $sale->update($request->all());
-
-        return redirect()->route('sales.index')
-            ->with('success', 'Venta actualizada satisfactoriamente'); */
     }
 
-    /**
-     * @param int $id
-     * @return \Illuminate\Http\RedirectResponse
-     * @throws \Exception
-     */
     public function destroy($id)
     {
-        /* $sale = Sale::find($id)->delete();
 
-        return redirect()->route('sales.index')
-            ->with('success', 'Venta eliminada satisfactoriamente'); */
     }
 }

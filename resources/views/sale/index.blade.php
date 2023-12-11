@@ -47,8 +47,7 @@
                                 <tbody>
                                     @foreach ($sales as $sale)
                                         <tr>
-                                            <td>{{ ++$i }}</td>
-
+                                            <td>{{ $sale->id }}</td>
 											<td>{{ $sale->customer->document_number }}</td>
 											<td>{{ $sale->user->name }}</td>
 											<td>{{ $sale->invoice_date }}</td>
@@ -57,11 +56,11 @@
 											<td>{{ $sale->igv }}</td>
 
                                             <td>
-                                                <form action="{{ route('sales.destroy',$sale->id) }}" method="POST">
+                                                <form action="" method="POST">
                                                     <a class="btn btn-sm btn-primary" href="{{ route('sales.show',$sale->id) }}"><i class="fa fa-fw fa-eye"></i> {{ __('Show') }}</a>
-                                                    <a class="btn btn-sm btn-success" href="{{ route('sales.edit',$sale->id) }}"><i class="fa fa-fw fa-edit"></i> {{ __('Edit') }}</a>
-                                                    <a class="btn btn-sm btn-secondary" href="#" ><i class="far fa-file"></i>PDF</a>
-                                                    <a class="btn btn-sm btn-dark" href="#" ><i class="fas fa-print"></i>Imprimir</a>
+                                                    {{-- <a class="btn btn-sm btn-success" href="{{ route('sales.edit',$sale->id) }}"><i class="fa fa-fw fa-edit"></i> {{ __('Edit') }}</a> --}}
+                                                    <a class="btn btn-sm btn-secondary" href="{{ route('sale.pdf',$sale->id) }}" ><i class="fa fa-file-pdf-o"></i>  PDF</a>
+                                                   {{--  <a class="btn btn-sm btn-dark" href="#" ><i class="fas fa-print"></i>Imprimir</a> --}}
                                                     @csrf
                                                     @method('DELETE')
                                                     <button type="submit" class="btn btn-danger btn-sm"><i class="fa fa-fw fa-trash"></i> {{ __('Delete') }}</button>

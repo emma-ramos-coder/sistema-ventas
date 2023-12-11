@@ -70,7 +70,7 @@
         <tr>
             <th>ID</th>
             <th>Descripción</th>
-            <th>Precio de compra</th>
+            <th>Precio de compra (S/)</th>
             <th>Stock</th>
         </tr>
         @foreach($productos as $p)

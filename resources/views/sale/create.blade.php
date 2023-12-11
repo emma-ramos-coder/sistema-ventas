@@ -4,6 +4,8 @@
     {{ __('Create') }} {{__('Sale')}}
 @endsection
 
+
+
 @section('content')
     <section class="content container-fluid">
         <div class="row">
@@ -25,7 +27,7 @@
 
                         </div>
                         <div class="card-footer">
-                            <button type="submit" id="guardar" class="btn btn-primary">Registrar</button>
+                            <button type="submit" id="guardar" class="btn btn-primary" disabled>Guardar</button>
                             <a href="{{ route('sales.index') }}" class="btn btn-danger">Cancelar</a>
                         </div>
                     </form>
@@ -34,3 +36,5 @@
         </div>
     </section>
 @endsection
+
+
