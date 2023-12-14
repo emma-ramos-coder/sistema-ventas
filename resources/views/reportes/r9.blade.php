@@ -25,7 +25,7 @@
         }
 
         #logo img {
-            width: 90px;
+            width: 120px;
             float: left;
         }
 
@@ -53,7 +53,6 @@
         }
         td, th {
             border: 1px solid #dddddd;
-            text-align: left;
             padding: 8px;
         }
         tr:nth-child(even){
@@ -62,7 +61,7 @@
     </style>
 </head>
 <body>
-    <div id="logo"> <img src="img/logoDSI.jpg" alt="logo DSI"> </div>
+    <div id="logo"> <img src="img/logo_s.png" alt="logo DSI"> </div>
     <h2>Productos por Categoria</h2>
     <p>Reporte de productos ordenados alfabeticamente por categoria</p>
     <br><br>
@@ -70,17 +69,17 @@
         <tr>
             <th>ID</th>
             <th>Descripción</th>
-            <th>Precio de venta</th>
-            <th>Stock</th>
-            <th>Tipo de artículo</th>
+            <th align="right">Precio de venta</th>
+            <th align="right">Stock</th>
+            <th align="center">Tipo de artículo</th>
         </tr>
         @foreach($productos as $p)
         <tr>
             <td>{{ $p->id }}</td>
             <td>{{ $p->description }}</td>
-            <td>{{ $p->sale_price }}</td>
-            <td>{{ $p->stock }}</td>
-            <td>{{ $p->item_type_description }}</td>
+            <td align="right">{{ $p->sale_price }}</td>
+            <td align="right">{{ $p->stock }}</td>
+            <td align="center">{{ $p->item_type_description }}</td>
 
         </tr>
         @endforeach

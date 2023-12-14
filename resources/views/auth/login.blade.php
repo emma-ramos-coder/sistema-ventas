@@ -2,8 +2,13 @@
 
 @section('content')
 <div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
+    <div class="row p-4">
+        <div class="col-4 mx-auto">
+            <img src="img/logo.png" alt="logo" width="100%">
+        </div>
+    </div>
+    <div class="row justify-content-center p-4 align-items-center">
+        <div class="col-md-4">
             <div class="card">
                 <div class="card-header">{{ __('Login') }}</div>
 
@@ -11,11 +16,12 @@
                     <form method="POST" action="{{ route('login') }}">
                         @csrf
 
-                        <div class="row mb-3">
-                            <label for="email" class="col-md-4 col-form-label text-md-end">{{ __('Email Address') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" autofocus>
+                        <div class="row m-2">
+                            <div class="col-2 p-0 border text-center">
+                                <i class="fa fa-envelope fa-lg"></i>
+                            </div>
+                            <div class="col-10 p-0">
+                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" placeholder="{{ __('Email Address') }}" autofocus>
 
                                 @error('email')
                                     <span class="invalid-feedback" role="alert">
@@ -23,13 +29,15 @@
                                     </span>
                                 @enderror
                             </div>
+
                         </div>
 
-                        <div class="row mb-3">
-                            <label for="password" class="col-md-4 col-form-label text-md-end">{{ __('Password') }}</label>
-
-                            <div class="col-md-6">
-                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password">
+                        <div class="row m-2">
+                            <div class="col-2 p-0 border text-center align-items-center">
+                                <i class="fa fa-lock fa-lg"></i>
+                            </div>
+                            <div class="col-10 p-0">
+                                <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password" placeholder="{{ __('Password') }}">
 
                                 @error('password')
                                     <span class="invalid-feedback" role="alert">
@@ -57,11 +65,11 @@
                                     {{ __('Login') }}
                                 </button>
 
-                                @if (Route::has('password.request'))
+                               {{--  @if (Route::has('password.request'))
                                     <a class="btn btn-link" href="{{ route('password.request') }}">
                                         {{ __('Forgot Your Password?') }}
                                     </a>
-                                @endif
+                                @endif --}}
                             </div>
                         </div>
                     </form>

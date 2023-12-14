@@ -2,6 +2,11 @@
 
 @section('content')
 <div class="container">
+    <div class="row p-4">
+        <div class="col-4 mx-auto">
+            <img src="img/logo.png" alt="logo" width="100%">
+        </div>
+    </div>
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">

@@ -52,11 +52,11 @@ class RoleSeeder extends Seeder
         Permission::create(['name','articles.show'])->syncRoles(['admin']);
         Permission::create(['name','articles.destroy'])->syncRoles(['admin']);
 
-        Permission::create(['name','refunds.index'])->syncRoles(['vendedor','cliente']);
-        Permission::create(['name','refunds.create'])->syncRoles(['vendedor','cliente']);
-        Permission::create(['name','refunds.edit'])->syncRoles(['vendedor','cliente']);
-        Permission::create(['name','refunds.show'])->syncRoles(['vendedor','cliente']);
-        Permission::create(['name','refunds.destroy'])->syncRoles(['vendedor','cliente']);
+        Permission::create(['name','refunds.index'])->syncRoles(['admin','vendedor','cliente']);
+        Permission::create(['name','refunds.create'])->syncRoles(['admin','vendedor','cliente']);
+        Permission::create(['name','refunds.edit'])->syncRoles(['admin','vendedor','cliente']);
+        Permission::create(['name','refunds.show'])->syncRoles(['admin','vendedor','cliente']);
+        Permission::create(['name','refunds.destroy'])->syncRoles(['admin','vendedor','cliente']);
 
         Permission::create(['name','reportes.r1'])->syncRoles(['admin','vendedor']);
         Permission::create(['name','reportes.r2'])->syncRoles(['admin','vendedor']);
@@ -69,11 +69,11 @@ class RoleSeeder extends Seeder
         Permission::create(['name','reportes.r9'])->syncRoles(['admin','vendedor']);
         Permission::create(['name','reportes.r10'])->syncRoles(['admin','vendedor']);
 
-        Permission::create(['name','sales.index'])->syncRoles(['vendedor','cliente']);
-        Permission::create(['name','sales.create'])->syncRoles(['vendedor','cliente']);
-        Permission::create(['name','sales.edit'])->syncRoles(['vendedor','cliente']);
-        Permission::create(['name','sales.show'])->syncRoles(['vendedor','cliente']);
-        Permission::create(['name','sales.destroy'])->syncRoles(['vendedor','cliente']);
+        Permission::create(['name','sales.index'])->syncRoles(['admin','vendedor','cliente']);
+        Permission::create(['name','sales.create'])->syncRoles(['admin','vendedor','cliente']);
+        Permission::create(['name','sales.edit'])->syncRoles(['admin','vendedor','cliente']);
+        Permission::create(['name','sales.show'])->syncRoles(['admin','vendedor','cliente']);
+        Permission::create(['name','sales.destroy'])->syncRoles(['admin','vendedor','cliente']);
 
         Permission::create(['name','suppliers.index'])->syncRoles(['admin']);
         Permission::create(['name','suppliers.create'])->syncRoles(['admin']);
@@ -86,5 +86,7 @@ class RoleSeeder extends Seeder
         Permission::create(['name','way-to-pays.edit'])->syncRoles(['admin']);
         Permission::create(['name','way-to-pays.show'])->syncRoles(['admin']);
         Permission::create(['name','way-to-pays.destroy'])->syncRoles(['admin']);
+
+        Permission::create(['name','sale/pdf/{sale}'])->syncRoles(['admin','vendedor','cliente']);
     }
 }

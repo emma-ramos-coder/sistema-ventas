@@ -25,7 +25,7 @@
         }
 
         #logo img {
-            width: 90px;
+            width: 120px;
             float: left;
         }
 
@@ -53,7 +53,6 @@
         }
         td, th {
             border: 1px solid #dddddd;
-            text-align: left;
             padding: 8px;
         }
         tr:nth-child(even){
@@ -62,19 +61,19 @@
     </style>
 </head>
 <body>
-    <div id="logo"> <img src="img/logoDSI.jpg" alt="logo DSI"> </div>
+    <div id="logo"> <img src="img/logo_s.png" alt="logo DSI"> </div>
     <h2>Ventas por forma de pago</h2>
     <p>Reporte de las ventas realizadas por forma de pago</p>
     <br><br>
     <table>
         <tr>
             <th>Forma de pago</th>
-            <th>Monto de ventas (S/)</th>
+            <th align="right">Monto de ventas (S/)</th>
         </tr>
         @foreach($ventas as $v)
         <tr>
             <td>{{ $v->way_to_pay_description }}</td>
-            <td>{{ $v->total }}</td>
+            <td align="right">{{ $v->total }}</td>
         </tr>
         @endforeach
     </table>

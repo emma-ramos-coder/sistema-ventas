@@ -100,7 +100,10 @@
         text-align: justify;
     }
     .borde-superior{
-        border-top: 2px solid black;
+        border-top: 1px solid black;
+    }
+    td, th{
+        padding: 4px;
     }
 </style>
 <body>
@@ -109,7 +112,7 @@
             <table id="datos">
                 <thead>
                     <tr>
-                        <td class="proveedor"><h4>EMPRESA COMERCIALIZADORA XYZ</h4></td>
+                        <td> <img src="img/logo.png" alt="logo" width="300px"></td>
 
                     </tr>
                 </thead>
@@ -171,28 +174,28 @@
                 </tbody>
                 <tfoot>
                     <tr>
-                        <th colspan="3">
-                            <p align="right">SUBTOTAL:</p>
+                        <th colspan="3"  align="right">
+                            SUBTOTAL:
                         </th>
-                        <th class="borde-superior">
+                        <th class="borde-superior" align="right">
                             <?php $subtotal = $sale->total_invoice - $sale->igv ?>
-                            <p align="right">S/ {{number_format($subtotal,2)}}</p>
+                            S/ {{number_format($subtotal,2)}}
                         </th>
                     </tr>
                     <tr>
-                        <th colspan="3">
-                            <p align="right">IGV:</p>
+                        <th colspan="3" align="right">
+                            IGV:
                         </th>
-                        <th>
-                            <p align="right">S/ {{number_format($sale->igv,2)}}</p>
+                        <th align="right">
+                            S/ {{number_format($sale->igv,2)}}
                         </th>
                     </tr>
                     <tr>
-                        <th colspan="3">
-                            <p align="right">TOTAL:</p>
+                        <th colspan="3" align="right">
+                            TOTAL:
                         </th>
-                        <th class="borde-superior">
-                            <p align="right">S/ {{number_format($sale->total_invoice,2)}}</p>
+                        <th class="borde-superior" align="right">
+                            S/ {{number_format($sale->total_invoice,2)}}
                         </th>
                     </tr>
 
