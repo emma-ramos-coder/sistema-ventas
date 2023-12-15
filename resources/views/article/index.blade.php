@@ -16,11 +16,18 @@
                                 {{ __('Article') }}
                             </span>
 
-                             <div class="float-right">
-                                <a href="{{ route('articles.create') }}" class="btn btn-primary btn-sm float-right"  data-placement="left">
-                                  {{ __('Create New') }}
-                                </a>
-                              </div>
+
+                                <div class="float-right">
+                                    <a href="{{ route('api_articulos') }}" class="btn btn-dark text-white btn-sm float-right"  data-placement="left">
+                                        {{ __('JSON') }}
+                                    </a>
+                                    @can('articles.create')
+                                    <a href="{{ route('articles.create') }}" class="btn btn-primary btn-sm float-right"  data-placement="left">
+                                    {{ __('Create New') }}
+                                    </a>
+                                    @endcan
+                                </div>
+
                         </div>
                     </div>
                     @if ($message = Session::get('success'))
@@ -38,11 +45,11 @@
 
 										<th>Descripción</th>
 										<th>Precio de venta</th>
-										<th>Precio de costo</th>
+										{{-- <th>Precio de costo</th> --}}
 										<th>Stock</th>
 										<th>Tipo de artículo</th>
-										<th>Proveedor</th>
-										<th>Fecha de ingreso</th>
+										{{-- <th>Proveedor</th>
+										<th>Fecha de ingreso</th> --}}
 
                                         <th></th>
                                     </tr>
@@ -54,13 +61,14 @@
 
 											<td>{{ $article->description }}</td>
 											<td>{{ $article->sale_price }}</td>
-											<td>{{ $article->cost_price }}</td>
+											{{-- <td>{{ $article->cost_price }}</td> --}}
 											<td>{{ $article->stock }}</td>
 											<td>{{ $article->itemType->item_type_description }}</td>
-											<td>{{ $article->supplier->tradename }}</td>
-											<td>{{ $article->admission_date }}</td>
+											{{-- <td>{{ $article->supplier->tradename }}</td>
+											<td>{{ $article->admission_date }}</td> --}}
 
                                             <td>
+                                                @can('articles.destroy')
                                                 <form action="{{ route('articles.destroy',$article->id) }}" method="POST">
                                                     <a class="btn btn-sm btn-primary " href="{{ route('articles.show',$article->id) }}"><i class="fa fa-fw fa-eye"></i> {{ __('Show') }}</a>
                                                     <a class="btn btn-sm btn-success" href="{{ route('articles.edit',$article->id) }}"><i class="fa fa-fw fa-edit"></i> {{ __('Edit') }}</a>
@@ -68,6 +76,7 @@
                                                     @method('DELETE')
                                                     <button type="submit" class="btn btn-danger btn-sm"><i class="fa fa-fw fa-trash"></i> {{ __('Delete') }}</button>
                                                 </form>
+                                                @endcan
                                             </td>
                                         </tr>
                                     @endforeach

@@ -13,11 +13,13 @@ use Illuminate\Http\Request;
  */
 class SupplierController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    public function __construct(){
+        $this->middleware('can:suppliers.index')->only('index');
+        $this->middleware('can:suppliers.create')->only('create','store');
+        $this->middleware('can:suppliers.show')->only('show');
+        $this->middleware('can:suppliers.edit')->only('edit','update');
+        $this->middleware('can:suppliers.destroy')->only('destroy');
+    }
     public function index()
     {
         $suppliers = Supplier::paginate();
@@ -26,11 +28,6 @@ class SupplierController extends Controller
             ->with('i', (request()->input('page', 1) - 1) * $suppliers->perPage());
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
         $supplier = new Supplier();
@@ -39,12 +36,6 @@ class SupplierController extends Controller
         return view('supplier.create', compact('supplier','document_types','cities'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\Response
-     */
     public function store(Request $request)
     {
         request()->validate(Supplier::$rules);
@@ -55,12 +46,6 @@ class SupplierController extends Controller
             ->with('success', 'Proveedor creado satisfactoriamente.');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int $id
-     * @return \Illuminate\Http\Response
-     */
     public function show($id)
     {
         $supplier = Supplier::find($id);
@@ -68,12 +53,6 @@ class SupplierController extends Controller
         return view('supplier.show', compact('supplier'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int $id
-     * @return \Illuminate\Http\Response
-     */
     public function edit($id)
     {
         $supplier = Supplier::find($id);
@@ -82,13 +61,6 @@ class SupplierController extends Controller
         return view('supplier.edit', compact('supplier','document_types','cities'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request $request
-     * @param  Supplier $supplier
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, Supplier $supplier)
     {
         request()->validate(Supplier::$rules);
@@ -99,11 +71,6 @@ class SupplierController extends Controller
             ->with('success', 'Proveedor actualizado satisfactoriamente');
     }
 
-    /**
-     * @param int $id
-     * @return \Illuminate\Http\RedirectResponse
-     * @throws \Exception
-     */
     public function destroy($id)
     {
         $supplier = Supplier::find($id)->delete();

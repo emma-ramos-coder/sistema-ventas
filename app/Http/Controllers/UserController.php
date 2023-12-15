@@ -11,9 +11,14 @@ use Illuminate\Support\Facades\DB;
 
 class UserController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+    public function __construct(){
+        $this->middleware('can:users.index')->only('index');
+        //$this->middleware('can:users.create')->only('create','store');
+        //$this->middleware('can:users.show')->only('show');
+        $this->middleware('can:users.edit')->only('edit','update');
+        //$this->middleware('can:users.destroy')->only('destroy');
+    }
+
     public function index()
     {
         $users = User::paginate();
@@ -75,7 +80,7 @@ class UserController extends Controller
         $user->update($request->all());
 
         DB::table('model_has_roles')->where('model_id', $user)->delete(); */
-
+        //dd($request);
         $user->roles()->sync($request->roles);
         return redirect()->route('users.index')->with('success', 'Se registró correctamente');
     }

@@ -11,11 +11,13 @@ use Illuminate\Http\Request;
  */
 class WayToPayController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    public function __construct(){
+        $this->middleware('can:way-to-pays.index')->only('index');
+        $this->middleware('can:way-to-pays.create')->only('create','store');
+        $this->middleware('can:way-to-pays.show')->only('show');
+        $this->middleware('can:way-to-pays.edit')->only('edit','update');
+        $this->middleware('can:way-to-pays.destroy')->only('destroy');
+    }
     public function index()
     {
         $wayToPays = WayToPay::paginate();
@@ -24,23 +26,14 @@ class WayToPayController extends Controller
             ->with('i', (request()->input('page', 1) - 1) * $wayToPays->perPage());
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function create()
     {
         $wayToPay = new WayToPay();
         return view('way-to-pay.create', compact('wayToPay'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\Response
-     */
+
     public function store(Request $request)
     {
         request()->validate(WayToPay::$rules);
@@ -51,12 +44,6 @@ class WayToPayController extends Controller
             ->with('success', 'Forma de pago creada satisfactoriamente.');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int $id
-     * @return \Illuminate\Http\Response
-     */
     public function show($id)
     {
         $wayToPay = WayToPay::find($id);
@@ -64,12 +51,6 @@ class WayToPayController extends Controller
         return view('way-to-pay.show', compact('wayToPay'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int $id
-     * @return \Illuminate\Http\Response
-     */
     public function edit($id)
     {
         $wayToPay = WayToPay::find($id);
@@ -77,13 +58,6 @@ class WayToPayController extends Controller
         return view('way-to-pay.edit', compact('wayToPay'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request $request
-     * @param  WayToPay $wayToPay
-     * @return \Illuminate\Http\Response
-     */
     public function update(Request $request, WayToPay $wayToPay)
     {
         request()->validate(WayToPay::$rules);
@@ -94,11 +68,6 @@ class WayToPayController extends Controller
             ->with('success', 'Forma de pago actualizada satisfactoriamente');
     }
 
-    /**
-     * @param int $id
-     * @return \Illuminate\Http\RedirectResponse
-     * @throws \Exception
-     */
     public function destroy($id)
     {
         $wayToPay = WayToPay::find($id)->delete();

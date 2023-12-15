@@ -22,7 +22,9 @@ use Barryvdh\DomPDF\Facade\Pdf;
 class SaleController extends Controller
 {
     public function __construct(){
-        $this->middleware('auth');
+        $this->middleware('can:sales.index')->only('index');
+        $this->middleware('can:sales.create')->only('create','store');
+        $this->middleware('can:sales.show')->only('show');
     }
 
     public function index()
@@ -97,13 +99,4 @@ class SaleController extends Controller
             return $pdf->stream('informe'.'.pdf');
     }
 
-
-    public function update(Request $request, Sale $sale)
-    {
-    }
-
-    public function destroy($id)
-    {
-
-    }
 }

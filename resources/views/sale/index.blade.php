@@ -56,15 +56,15 @@
 											<td>{{ $sale->igv }}</td>
 
                                             <td>
-                                                <form action="" method="POST">
+                                                {{-- <form action="" method="POST"> --}}
                                                     <a class="btn btn-sm btn-primary" href="{{ route('sales.show',$sale->id) }}"><i class="fa fa-fw fa-eye"></i> {{ __('Show') }}</a>
                                                     {{-- <a class="btn btn-sm btn-success" href="{{ route('sales.edit',$sale->id) }}"><i class="fa fa-fw fa-edit"></i> {{ __('Edit') }}</a> --}}
                                                     <a class="btn btn-sm btn-secondary" href="{{ route('sale.pdf',$sale->id) }}" ><i class="fa fa-file-pdf-o"></i>  PDF</a>
                                                    {{--  <a class="btn btn-sm btn-dark" href="#" ><i class="fas fa-print"></i>Imprimir</a> --}}
-                                                    @csrf
+                                                {{--     @csrf
                                                     @method('DELETE')
-                                                    <button type="submit" class="btn btn-danger btn-sm"><i class="fa fa-fw fa-trash"></i> {{ __('Delete') }}</button>
-                                                </form>
+                                                    <button type="submit" class="btn btn-danger btn-sm"><i class="fa fa-fw fa-trash"></i> {{ __('Nota de Credito') }}</button>
+                                                </form> --}}
                                             </td>
                                         </tr>
                                     @endforeach

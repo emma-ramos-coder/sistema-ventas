@@ -9,6 +9,7 @@
 
                 <div class="card-body">
                         <div class="row m-2">
+                            @can('articles.index')
                             <div class="col-lg-3 col-6">
                                 <!-- small box -->
                                 <div class="small-box bg-info text-center p-3 shadow-sm border rounded-lg">
@@ -23,7 +24,9 @@
                                     <a href="  {{route('articles.index')}}" class="small-box-footer text-white">Ver Detalles <i class="fa fa-arrow-circle-right"></i></a>
                                 </div>
                             </div>
+                            @endcan
                             <!-- ./col -->
+                            @can('customers.index')
                             <div class="col-lg-3 col-6">
                                 <!-- small box -->
                                 <div class="small-box bg-success text-center p-3">
@@ -38,7 +41,9 @@
                                     <a href=" {{ route('customers.index')}} " class="small-box-footer text-white">Ver Detalles <i class="fa fa-arrow-circle-right"></i></a>
                                 </div>
                             </div>
+                            @endcan
                             <!-- ./col -->
+                            @can('suppliers.index')
                             <div class="col-lg-3 col-6">
                                 <!-- small box -->
                                 <div class="small-box bg-warning text-center p-3 shadow-sm border rounded-lg">
@@ -53,7 +58,9 @@
                                     <a href=" {{ route('suppliers.index')}}" class="small-box-footer text-white">Ver Detalles <i class="fa fa-arrow-circle-right"></i></a>
                                 </div>
                             </div>
+                            @endcan
                             <!-- ./col -->
+                            @can('sales.index')
                             <div class="col-lg-3 col-6">
                                 <!-- small box -->
                                 <div class="small-box bg-danger text-center p-3 shadow-sm border rounded-lg">
@@ -68,10 +75,12 @@
                                     <a href=" {{route('sales.index')}}" class="small-box-footer text-white">Ver Detalles <i class="fa fa-arrow-circle-right"></i></a>
                                 </div>
                             </div>
+                            @endcan
                             <!-- ./col -->
                         </div>
                         <div class="row m-2 p-2"> </div>
                         <div class="row m-2">
+                            @can('document-types.index')
                             <div class="col-lg-3 col-6">
                                 <!-- small box -->
                                 <div class="small-box bg-primary text-center p-3 shadow-sm border rounded-lg">
@@ -86,7 +95,9 @@
                                     <a href="  {{route('document-types.index')}}" class="small-box-footer text-white">Ver Detalles <i class="fa fa-arrow-circle-right"></i></a>
                                 </div>
                             </div>
+                            @endcan
                             <!-- ./col -->
+                            @can('cities.index')
                             <div class="col-lg-3 col-6">
                                 <!-- small box -->
                                 <div class="small-box bg-secondary text-center p-3 shadow-sm border rounded-lg">
@@ -101,7 +112,9 @@
                                     <a href=" {{ route('cities.index')}} " class="small-box-footer text-white">Ver Detalles <i class="fa fa-arrow-circle-right"></i></a>
                                 </div>
                             </div>
+                            @endcan
                             <!-- ./col -->
+                            @can('item-types.index')
                             <div class="col-lg-3 col-6">
                                 <!-- small box -->
                                 <div class="small-box text-white bg-dark text-center p-3 shadow-sm border rounded-lg">
@@ -116,7 +129,9 @@
                                     <a href=" {{ route('item-types.index')}}" class="small-box-footer text-white">Ver Detalles <i class="fa fa-arrow-circle-right"></i></a>
                                 </div>
                             </div>
+                            @endcan
                             <!-- ./col -->
+                            @can('way-to-pays.index')
                             <div class="col-lg-3 col-6">
                                 <!-- small box -->
                                 <div class="small-box bg-white text-center p-3 shadow-sm border rounded-lg">
@@ -131,6 +146,7 @@
                                     <a href=" {{route('way-to-pays.index')}}" class="small-box-footer text-dark">Ver Detalles <i class="fa fa-arrow-circle-right"></i></a>
                                 </div>
                             </div>
+                            @endcan
                             <!-- ./col -->
                         </div>
                     </div>

@@ -6,6 +6,8 @@ use App\Models\Article;
 use App\Models\ItemType;
 use App\Models\Supplier;
 use Illuminate\Http\Request;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\DB;
 
 /**
  * Class ArticleController
@@ -13,11 +15,14 @@ use Illuminate\Http\Request;
  */
 class ArticleController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    public function __construct(){
+        $this->middleware('can:articles.index')->only('index');
+        $this->middleware('can:articles.create')->only('create','store');
+        $this->middleware('can:articles.show')->only('show');
+        $this->middleware('can:articles.edit')->only('edit','update');
+        $this->middleware('can:articles.destroy')->only('destroy');
+    }
+
     public function index()
     {
         $articles = Article::paginate();
@@ -26,11 +31,7 @@ class ArticleController extends Controller
             ->with('i', (request()->input('page', 1) - 1) * $articles->perPage());
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function create()
     {
         $article = new Article();
@@ -39,12 +40,7 @@ class ArticleController extends Controller
         return view('article.create', compact('article','item_types','suppliers'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\Response
-     */
+
     public function store(Request $request)
     {
         request()->validate(Article::$rules);
@@ -55,12 +51,7 @@ class ArticleController extends Controller
             ->with('success', 'Articulo creado satisfactoriamente.');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int $id
-     * @return \Illuminate\Http\Response
-     */
+
     public function show($id)
     {
         $article = Article::find($id);
@@ -68,12 +59,7 @@ class ArticleController extends Controller
         return view('article.show', compact('article'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int $id
-     * @return \Illuminate\Http\Response
-     */
+
     public function edit($id)
     {
         $article = Article::find($id);
@@ -82,13 +68,7 @@ class ArticleController extends Controller
         return view('article.edit', compact('article','item_types','suppliers'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request $request
-     * @param  Article $article
-     * @return \Illuminate\Http\Response
-     */
+
     public function update(Request $request, Article $article)
     {
         request()->validate(Article::$rules);
@@ -99,16 +79,25 @@ class ArticleController extends Controller
             ->with('success', 'Articulo actualizado satisfactoriamente');
     }
 
-    /**
-     * @param int $id
-     * @return \Illuminate\Http\RedirectResponse
-     * @throws \Exception
-     */
+
     public function destroy($id)
     {
         $article = Article::find($id)->delete();
 
         return redirect()->route('articles.index')
             ->with('success', 'Articulo eliminado satisfactoriamente');
+    }
+
+    public function api_articulos():JsonResponse
+    {
+        $articles = DB::table('articles')
+            ->join('item_types','articles.item_type_id','=','item_types.id')
+            ->select(['articles.id','description','sale_price','stock','item_type_description'])
+            ->where('stock','>','0')
+            ->orderBy('item_type_description')
+            ->orderBy('description')
+            ->get();
+        // devuelve una respuesta HTTP en formato JSON con un código de estado 200 (OK)
+        return response()->json($articles,200);
     }
 }

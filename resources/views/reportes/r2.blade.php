@@ -25,8 +25,9 @@
         }
 
         #logo img {
-            width: 120px;
+            width: 130px;
             float: left;
+            padding: 7px;
         }
 
         h2 {

@@ -25,8 +25,9 @@
         }
 
         #logo img {
-            width: 120px;
+            width: 130px;
             float: left;
+            padding: 7px;
         }
 
         h2 {
@@ -61,7 +62,7 @@
     </style>
 </head>
 <body>
-    <div id="logo"> <img src="img/logoDSI.jpg" alt="logo DSI"> </div>
+    <div id="logo"> <img src="img/logo_s.png" alt="logo DSI"> </div>
     <h2>Clientes por ciudad</h2>
     <p>Reporte de clientes por ciudad</p>
     <br><br>

@@ -19,11 +19,11 @@
         </div>
         <div class="mb-3 row">
             <h5>Lista de Roles:</h5>
+            {!! Form::model($user, ['route'=>['users.update',$user],'method'=>'put']) !!}
             @foreach ($roles as $role)
             <div class="col-8 form-group">
                 <label>
-                    {{ Form::checkbox('roles[]', $role->id, null, ['class' => 'form-check-input' . ($errors->has('roles') ? ' is-invalid' : '')]) }}
-                    {!! $errors->first('roles', '<div class="invalid-feedback">:message</div>') !!}
+                    {{ Form::checkbox('roles[]', $role->id, null, ['class' => 'form-check-input']) }}
                     {{ $role->name }}
                 </label>
             </div>
@@ -32,5 +32,6 @@
     </div>
     <div class="box-footer mt20">
         <button type="submit" class="btn btn-primary">{{ __('Submit') }}</button>
+        <a class="btn btn-danger" href="{{ route('users.index') }}"> {{ __('Cancelar') }}</a>
     </div>
 </div>

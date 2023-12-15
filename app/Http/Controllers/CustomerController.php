@@ -13,11 +13,14 @@ use Illuminate\Http\Request;
  */
 class CustomerController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    public function __construct(){
+        $this->middleware('can:customers.index')->only('index');
+        $this->middleware('can:customers.create')->only('create','store');
+        $this->middleware('can:customers.show')->only('show');
+        $this->middleware('can:customers.edit')->only('edit','update');
+        $this->middleware('can:customers.destroy')->only('destroy');
+    }
+
     public function index()
     {
         $customers = Customer::paginate();
@@ -26,11 +29,7 @@ class CustomerController extends Controller
             ->with('i', (request()->input('page', 1) - 1) * $customers->perPage());
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function create()
     {
         $customer = new Customer();
@@ -39,12 +38,7 @@ class CustomerController extends Controller
         return view('customer.create', compact('customer','document_types','cities'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\Response
-     */
+
     public function store(Request $request)
     {
         request()->validate(Customer::$rules);
@@ -55,12 +49,7 @@ class CustomerController extends Controller
             ->with('success', 'Cliente creado satisfactoriamente.');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int $id
-     * @return \Illuminate\Http\Response
-     */
+
     public function show($id)
     {
         $customer = Customer::find($id);
@@ -68,12 +57,7 @@ class CustomerController extends Controller
         return view('customer.show', compact('customer'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int $id
-     * @return \Illuminate\Http\Response
-     */
+
     public function edit($id)
     {
         $customer = Customer::find($id);
@@ -82,13 +66,7 @@ class CustomerController extends Controller
         return view('customer.edit', compact('customer','document_types','cities'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request $request
-     * @param  Customer $customer
-     * @return \Illuminate\Http\Response
-     */
+
     public function update(Request $request, Customer $customer)
     {
         request()->validate(Customer::$rules);
@@ -99,11 +77,7 @@ class CustomerController extends Controller
             ->with('success', 'Cliente actualizado satisfactoriamente');
     }
 
-    /**
-     * @param int $id
-     * @return \Illuminate\Http\RedirectResponse
-     * @throws \Exception
-     */
+
     public function destroy($id)
     {
         $customer = Customer::find($id)->delete();

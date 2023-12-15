@@ -11,11 +11,13 @@ use Illuminate\Http\Request;
  */
 class ItemTypeController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    public function __construct(){
+        $this->middleware('can:item-types.index')->only('index');
+        $this->middleware('can:item-types.create')->only('create','store');
+        $this->middleware('can:item-types.show')->only('show');
+        $this->middleware('can:item-types.edit')->only('edit','update');
+        $this->middleware('can:item-types.destroy')->only('destroy');
+    }
     public function index()
     {
         $itemTypes = ItemType::paginate();
@@ -24,23 +26,14 @@ class ItemTypeController extends Controller
             ->with('i', (request()->input('page', 1) - 1) * $itemTypes->perPage());
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function create()
     {
         $itemType = new ItemType();
         return view('item-type.create', compact('itemType'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\Response
-     */
+
     public function store(Request $request)
     {
         request()->validate(ItemType::$rules);
@@ -51,12 +44,7 @@ class ItemTypeController extends Controller
             ->with('success', 'Tipo de articulo creado satisfactoriamente.');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int $id
-     * @return \Illuminate\Http\Response
-     */
+
     public function show($id)
     {
         $itemType = ItemType::find($id);
@@ -64,12 +52,7 @@ class ItemTypeController extends Controller
         return view('item-type.show', compact('itemType'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int $id
-     * @return \Illuminate\Http\Response
-     */
+
     public function edit($id)
     {
         $itemType = ItemType::find($id);
@@ -77,13 +60,7 @@ class ItemTypeController extends Controller
         return view('item-type.edit', compact('itemType'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request $request
-     * @param  ItemType $itemType
-     * @return \Illuminate\Http\Response
-     */
+
     public function update(Request $request, ItemType $itemType)
     {
         request()->validate(ItemType::$rules);
@@ -94,11 +71,7 @@ class ItemTypeController extends Controller
             ->with('success', 'Tipo de articulo actualizado satisfactoriamente');
     }
 
-    /**
-     * @param int $id
-     * @return \Illuminate\Http\RedirectResponse
-     * @throws \Exception
-     */
+
     public function destroy($id)
     {
         $itemType = ItemType::find($id)->delete();

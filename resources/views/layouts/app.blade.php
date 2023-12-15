@@ -31,7 +31,7 @@
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm">
             <div class="container">
             <a class="navbar-brand" href="{{ url('/home') }}">
-                <img src="img/logo_s.png" alt="logo" width="100px">     SISTEMA DE VENTAS
+                <img src="img/logo_s.PNG" alt="logo" width="100px">     SISTEMA DE VENTAS
             </a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                 <span class="navbar-toggler-icon"></span>
@@ -41,48 +41,70 @@
                 <!-- Left Side Of Navbar -->
                 @if(Auth::check())
                 <ul class="navbar-nav p-3">
+                    @role('admin')
                     <li class="nav-item dropdown px-4">
                         <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                             <i class="fa fa-cog fa-lg"></i>  {{ __('File') }}
                         </a>
                         <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="{{ route('document-types.index') }}">
+                            @can('document-types.index')
+                                <a class="dropdown-item" href="{{ route('document-types.index') }}">
                                 <i class="fa fa-address-book-o fa-lg fa-fw"></i>  {{ __('Document Type') }}
                             </a>
-                            <a class="dropdown-item" href="{{ route('cities.index') }}">
-                                <i class="fa fa-map-marker fa-lg fa-fw"></i>  {{ __('City') }}
-                            </a>
-                            <a class="dropdown-item" href="{{ route('item-types.index') }}">
-                                <i class="fa fa-archive fa-lg fa-fw"></i>  {{ __('Item Type') }}
-                            </a>
-                            <a class="dropdown-item" href="{{ route('way-to-pays.index') }}">
-                                <i class="fa fa-usd fa-lg fa-fw"></i>  {{ __('Way To Pay') }}
-                            </a>
-                            <a class="dropdown-item" href="{{ route('customers.index') }}">
-                                <i class="fa fa-user fa-lg fa-fw"></i>  {{ __('Customer') }}
-                            </a>
-                            <a class="dropdown-item" href="{{ route('suppliers.index') }}">
-                                <i class="fa fa-id-card-o fa-lg fa-fw"></i>  {{ __('Supplier') }}
-                            </a>
-                            <a class="dropdown-item" href="{{ route('articles.index') }}">
-                                <i class="fa fa-gift fa-lg fa-fw"></i>  {{ __('Article') }}
-                            </a>
-                            <a class="dropdown-item" href="{{ route('users.index') }}">
-                                <i class="fa fa-users fa-lg fa-fw"></i>  {{ __('Usuarios') }}
-                            </a>
+                            @endcan
+                            @can('cities.index')
+                                <a class="dropdown-item" href="{{ route('cities.index') }}">
+                                    <i class="fa fa-map-marker fa-lg fa-fw"></i>  {{ __('City') }}
+                                </a>
+                            @endcan
+                            @can('item-types.index')
+                                <a class="dropdown-item" href="{{ route('item-types.index') }}">
+                                    <i class="fa fa-archive fa-lg fa-fw"></i>  {{ __('Item Type') }}
+                                </a>
+                            @endcan
+                            @can('way-to-pays.index')
+                                <a class="dropdown-item" href="{{ route('way-to-pays.index') }}">
+                                    <i class="fa fa-usd fa-lg fa-fw"></i>  {{ __('Way To Pay') }}
+                                </a>
+                            @endcan
+                            @can('customers.index')
+                                <a class="dropdown-item" href="{{ route('customers.index') }}">
+                                    <i class="fa fa-user fa-lg fa-fw"></i>  {{ __('Customer') }}
+                                </a>
+                            @endcan
+                            @can('suppliers.index')
+                                <a class="dropdown-item" href="{{ route('suppliers.index') }}">
+                                    <i class="fa fa-id-card-o fa-lg fa-fw"></i>  {{ __('Supplier') }}
+                                </a>
+                            @endcan
+                            @can('articles.index')
+                                <a class="dropdown-item" href="{{ route('articles.index') }}">
+                                    <i class="fa fa-gift fa-lg fa-fw"></i>  {{ __('Article') }}
+                                </a>
+                            @endcan
+                            @can('users.index')
+                                <a class="dropdown-item" href="{{ route('users.index') }}">
+                                    <i class="fa fa-users fa-lg fa-fw"></i>  {{ __('Usuarios') }}
+                                </a>
+                            @endcan
                         </div>
                     </li>
+                    @endrole
                     <li class="nav-item dropdown px-4">
                         <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                             <i class="fa fa-cart-arrow-down fa-lg fa-fw"></i>  {{ __('Procesos') }}
                         </a>
                         <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="{{ route('sales.index') }}">
-                                <i class="fa fa-shopping-cart fa-lg fa-fw"></i>  {{ __('Sale') }}
-                            </a>
-                            <a class="dropdown-item" href="{{ route('refunds.index') }}">
-                                <i class="fa fa-mail-reply fa-lg fa-fw"></i>  {{ __('Refund') }}
-                            </a>
+                            @can('sales.index')
+                                <a class="dropdown-item" href="{{ route('sales.index') }}">
+                                    <i class="fa fa-shopping-cart fa-lg fa-fw"></i>  {{ __('Sale') }}
+                                </a>
+                            @endcan
+                            {{-- @can('refunds.index')
+                                <a class="dropdown-item" href="{{ route('refunds.index') }}">
+                                    <i class="fa fa-mail-reply fa-lg fa-fw"></i>  {{ __('Refund') }}
+                                </a>
+                            @endcan --}}
                         </div>
                     </li>
                     <li class="nav-item dropdown px-4">
@@ -90,36 +112,56 @@
                             <i class='fa fa-bar-chart fa-lg fa-fw'></i>  {{ __('Consultas') }}
                         </a>
                         <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href=" {{ route('reportes.r1') }} ">
-                                <i class="fa fa-file-pdf-o fa-lg fa-fw"></i>  {{ __('Productos vendidos') }}
-                            </a>
-                            <a class="dropdown-item" href=" {{ route('reportes.r2') }} ">
-                                <i class="fa fa-file-pdf-o fa-lg fa-fw"></i>  {{ __('Precios de productos') }}
-                            </a>
-                            <a class="dropdown-item" href=" {{ route('reportes.r3') }} ">
-                                <i class="fa fa-file-pdf-o fa-lg fa-fw"></i>  {{ __('Productos sin stock') }}
-                            </a>
-                            <a class="dropdown-item" href=" {{ route('reportes.r4') }} ">
-                                <i class="fa fa-file-pdf-o fa-lg fa-fw"></i>  {{ __('Ventas por día') }}
-                            </a>
-                            <a class="dropdown-item" href=" {{ route('reportes.r5') }} ">
-                                <i class="fa fa-file-pdf-o fa-lg fa-fw "></i>  {{ __('Ventas por cliente') }}
-                            </a>
-                            <a class="dropdown-item" href=" {{ route('reportes.r6') }} ">
-                                <i class="fa fa-file-pdf-o fa-lg fa-fw"></i>  {{ __('Ventas por proveedor') }}
-                            </a>
-                            <a class="dropdown-item" href=" {{ route('reportes.r7') }} ">
-                                <i class="fa fa-file-pdf-o fa-lg fa-fw"></i>  {{ __('Clientes por ciudad') }}
-                            </a>
-                            <a class="dropdown-item" href=" {{ route('reportes.r8') }} ">
-                                <i class="fa fa-file-pdf-o fa-lg fa-fw"></i>  {{ __('Ventas por forma de pago') }}
-                            </a>
-                            <a class="dropdown-item" href=" {{ route('reportes.r9') }} ">
-                                <i class="fa fa-file-pdf-o fa-lg fa-fw"></i>  {{ __('Productos por categoria') }}
-                            </a>
-                            <a class="dropdown-item" href=" {{ route('reportes.r10') }} ">
-                                <i class="fa fa-file-pdf-o fa-lg fa-fw"></i>  {{ __('Ventas por usuario') }}
-                            </a>
+                            @can('reportes.r1')
+                                <a class="dropdown-item" href=" {{ route('reportes.r1') }} ">
+                                    <i class="fa fa-file-pdf-o fa-lg fa-fw"></i>  {{ __('Productos vendidos') }}
+                                </a>
+                            @endcan
+                            @can('reportes.r2')
+                                <a class="dropdown-item" href=" {{ route('reportes.r2') }} ">
+                                    <i class="fa fa-file-pdf-o fa-lg fa-fw"></i>  {{ __('Precios de productos') }}
+                                </a>
+                            @endcan
+                            @can('reportes.r3')
+                                <a class="dropdown-item" href=" {{ route('reportes.r3') }} ">
+                                    <i class="fa fa-file-pdf-o fa-lg fa-fw"></i>  {{ __('Productos sin stock') }}
+                                </a>
+                            @endcan
+                            @can('reportes.r4')
+                                <a class="dropdown-item" href=" {{ route('reportes.r4') }} ">
+                                    <i class="fa fa-file-pdf-o fa-lg fa-fw"></i>  {{ __('Ventas por día') }}
+                                </a>
+                            @endcan
+                            @can('reportes.r5')
+                                <a class="dropdown-item" href=" {{ route('reportes.r5') }} ">
+                                    <i class="fa fa-file-pdf-o fa-lg fa-fw "></i>  {{ __('Ventas por cliente') }}
+                                </a>
+                            @endcan
+                            @can('reportes.r6')
+                                <a class="dropdown-item" href=" {{ route('reportes.r6') }} ">
+                                    <i class="fa fa-file-pdf-o fa-lg fa-fw"></i>  {{ __('Ventas por proveedor') }}
+                                </a>
+                            @endcan
+                            @can('reportes.r7')
+                                <a class="dropdown-item" href=" {{ route('reportes.r7') }} ">
+                                    <i class="fa fa-file-pdf-o fa-lg fa-fw"></i>  {{ __('Clientes por ciudad') }}
+                                </a>
+                            @endcan
+                            @can('reportes.r8')
+                                <a class="dropdown-item" href=" {{ route('reportes.r8') }} ">
+                                    <i class="fa fa-file-pdf-o fa-lg fa-fw"></i>  {{ __('Ventas por forma de pago') }}
+                                </a>
+                            @endcan
+                            @can('reportes.r9')
+                                <a class="dropdown-item" href=" {{ route('reportes.r9') }} ">
+                                    <i class="fa fa-file-pdf-o fa-lg fa-fw"></i>  {{ __('Productos por categoria') }}
+                                </a>
+                            @endcan
+                            @can('reportes.r10')
+                                <a class="dropdown-item" href=" {{ route('reportes.r10') }} ">
+                                    <i class="fa fa-file-pdf-o fa-lg fa-fw"></i>  {{ __('Ventas por usuario') }}
+                                </a>
+                            @endcan
                         </div>
                     </li>
                 </ul>

@@ -11,11 +11,13 @@ use Illuminate\Http\Request;
  */
 class DocumentTypeController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    public function __construct(){
+        $this->middleware('can:document-types.index')->only('index');
+        $this->middleware('can:document-types.create')->only('create','store');
+        $this->middleware('can:document-types.show')->only('show');
+        $this->middleware('can:document-types.edit')->only('edit','update');
+        $this->middleware('can:document-types.destroy')->only('destroy');
+    }
     public function index()
     {
         $documentTypes = DocumentType::paginate();
@@ -24,23 +26,14 @@ class DocumentTypeController extends Controller
             ->with('i', (request()->input('page', 1) - 1) * $documentTypes->perPage());
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function create()
     {
         $documentType = new DocumentType();
         return view('document-type.create', compact('documentType'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\Response
-     */
+
     public function store(Request $request)
     {
         request()->validate(DocumentType::$rules);
@@ -51,12 +44,7 @@ class DocumentTypeController extends Controller
             ->with('success', 'Tipo de documento creado satisfactoriamente.');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int $id
-     * @return \Illuminate\Http\Response
-     */
+
     public function show($id)
     {
         $documentType = DocumentType::find($id);
@@ -64,12 +52,7 @@ class DocumentTypeController extends Controller
         return view('document-type.show', compact('documentType'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int $id
-     * @return \Illuminate\Http\Response
-     */
+
     public function edit($id)
     {
         $documentType = DocumentType::find($id);
@@ -77,13 +60,7 @@ class DocumentTypeController extends Controller
         return view('document-type.edit', compact('documentType'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request $request
-     * @param  DocumentType $documentType
-     * @return \Illuminate\Http\Response
-     */
+
     public function update(Request $request, DocumentType $documentType)
     {
         request()->validate(DocumentType::$rules);
@@ -94,11 +71,7 @@ class DocumentTypeController extends Controller
             ->with('success', 'Tipo de documento actualizado satisfactoriamente');
     }
 
-    /**
-     * @param int $id
-     * @return \Illuminate\Http\RedirectResponse
-     * @throws \Exception
-     */
+
     public function destroy($id)
     {
         $documentType = DocumentType::find($id)->delete();

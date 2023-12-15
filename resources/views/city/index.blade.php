@@ -18,8 +18,8 @@
 
                              <div class="float-right">
                                 <a href="{{ route('cities.create') }}" class="btn btn-primary btn-sm float-right"  data-placement="left">
-                                  {{ __('Create New') }}
-                                </a>
+                                    {{ __('Create New') }}
+                                  </a>
                               </div>
                         </div>
                     </div>

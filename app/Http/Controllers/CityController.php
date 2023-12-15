@@ -5,17 +5,17 @@ namespace App\Http\Controllers;
 use App\Models\City;
 use Illuminate\Http\Request;
 
-/**
- * Class CityController
- * @package App\Http\Controllers
- */
+
 class CityController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    public function __construct(){
+        $this->middleware('can:cities.index')->only('index');
+        $this->middleware('can:cities.create')->only('create','store');
+        $this->middleware('can:cities.show')->only('show');
+        $this->middleware('can:cities.edit')->only('edit','update');
+        $this->middleware('can:cities.destroy')->only('destroy');
+
+    }
     public function index()
     {
         $cities = City::paginate();
@@ -24,23 +24,14 @@ class CityController extends Controller
             ->with('i', (request()->input('page', 1) - 1) * $cities->perPage());
     }
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+
     public function create()
     {
         $city = new City();
         return view('city.create', compact('city'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\Response
-     */
+
     public function store(Request $request)
     {
         request()->validate(City::$rules);
@@ -51,12 +42,7 @@ class CityController extends Controller
             ->with('success', 'Ciudad creada satisfactoriamente.');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int $id
-     * @return \Illuminate\Http\Response
-     */
+
     public function show($id)
     {
         $city = City::find($id);
@@ -64,12 +50,7 @@ class CityController extends Controller
         return view('city.show', compact('city'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int $id
-     * @return \Illuminate\Http\Response
-     */
+
     public function edit($id)
     {
         $city = City::find($id);
@@ -77,13 +58,7 @@ class CityController extends Controller
         return view('city.edit', compact('city'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request $request
-     * @param  City $city
-     * @return \Illuminate\Http\Response
-     */
+
     public function update(Request $request, City $city)
     {
         request()->validate(City::$rules);
@@ -94,11 +69,7 @@ class CityController extends Controller
             ->with('success', 'Ciudad actualizada satisfactoriamente');
     }
 
-    /**
-     * @param int $id
-     * @return \Illuminate\Http\RedirectResponse
-     * @throws \Exception
-     */
+
     public function destroy($id)
     {
         $city = City::find($id)->delete();

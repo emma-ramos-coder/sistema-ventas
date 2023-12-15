@@ -16,7 +16,7 @@ class RoleSeeder extends Seeder
     {
         Permission::create(['name','home'])->syncRoles(['admin','vendedor','cliente','invitado']);
 
-        Permission::create(['name','articles.index'])->syncRoles(['admin']);
+        Permission::create(['name','articles.index'])->syncRoles(['admin','invitado']);
         Permission::create(['name','articles.create'])->syncRoles(['admin']);
         Permission::create(['name','articles.edit'])->syncRoles(['admin']);
         Permission::create(['name','articles.show'])->syncRoles(['admin']);
@@ -88,5 +88,11 @@ class RoleSeeder extends Seeder
         Permission::create(['name','way-to-pays.destroy'])->syncRoles(['admin']);
 
         Permission::create(['name','sale/pdf/{sale}'])->syncRoles(['admin','vendedor','cliente']);
+
+        Permission::create(['name','users.index'])->syncRoles(['admin']);
+        Permission::create(['name','users.create'])->syncRoles(['admin']);
+        Permission::create(['name','users.edit'])->syncRoles(['admin']);
+        Permission::create(['name','users.show'])->syncRoles(['admin']);
+        Permission::create(['name','users.destroy'])->syncRoles(['admin']);
     }
 }
