@@ -23,7 +23,7 @@ return new class extends Migration
                 ->on('articles')
                 ->onDelete('cascade');
             $table->decimal('quantity',10,0);
-            $table->decimal('price',10,0);
+            $table->decimal('price',10,2);
             $table->timestamps();
         });
     }
