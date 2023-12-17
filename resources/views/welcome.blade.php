@@ -16,7 +16,8 @@
         <div class="container-fluid p-2 mb-3">
             <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
                 <div class="container-fluid">
-                    <a class="navbar-brand" href="#">
+
+                    <a class="navbar-brand" href="{{ url('/home') }}">
                         <img src="img/logo_s.PNG" alt="" width="100px">     SISTEMA DE VENTAS
                     </a>
                     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarScroll" aria-controls="navbarScroll" aria-expanded="false" aria-label="Toggle navigation">
