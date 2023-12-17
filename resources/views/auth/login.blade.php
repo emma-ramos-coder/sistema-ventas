@@ -9,7 +9,7 @@
     </div>
     <div class="row justify-content-center p-4 align-items-center">
         <div class="col-md-4">
-            <div class="card">
+            <div class="card shadow">
                 <div class="card-header">{{ __('Login') }}</div>
 
                 <div class="card-body">
@@ -17,7 +17,7 @@
                         @csrf
 
                         <div class="row m-2">
-                            <div class="col-2 p-0 border text-center">
+                            <div class="col-2 p-0 border text-center rounded-2">
                                 <i class="fa fa-envelope fa-lg"></i>
                             </div>
                             <div class="col-10 p-0">
@@ -33,7 +33,7 @@
                         </div>
 
                         <div class="row m-2">
-                            <div class="col-2 p-0 border text-center align-items-center">
+                            <div class="col-2 p-0 border text-center rounded-2">
                                 <i class="fa fa-lock fa-lg"></i>
                             </div>
                             <div class="col-10 p-0">
@@ -48,9 +48,9 @@
                         </div>
 
                         <div class="row mb-3">
-                            <div class="col-md-6 offset-md-4">
+                            <div class="col-md-9 offset-md-4">
                                 <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
+                                    <input class="form-check-input border-2" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
 
                                     <label class="form-check-label" for="remember">
                                         {{ __('Remember Me') }}

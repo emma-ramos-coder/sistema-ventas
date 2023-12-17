@@ -12,6 +12,7 @@ use App\Http\Controllers\SupplierController;
 use App\Http\Controllers\WayToPayController;
 use App\Http\Controllers\ReportController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\RoleController;
 use App\Models\DocumentType;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
@@ -23,7 +24,7 @@ use Illuminate\Support\Facades\Auth;
 */
 
 Route::get('/', function () {
-    return view('auth.login');
+    return view('welcome');
 });
 Route::get('reportes/r1', [ReportController::class,'generar1'])->middleware('auth')->middleware('can:reportes.r1')->name('reportes.r1');
 Route::get('reportes/r2', [ReportController::class,'generar2'])->middleware('auth')->middleware('can:reportes.r2')->name('reportes.r2');
@@ -52,3 +53,5 @@ Route::get('sale/pdf/{sale}', [SaleController::class, 'pdf'])->middleware('auth'
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->middleware('can:home')->name('home');
+
+Route::resource('roles',RoleController::class)->names('roles');

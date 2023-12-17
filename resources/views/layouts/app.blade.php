@@ -31,7 +31,7 @@
         <nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm">
             <div class="container">
             <a class="navbar-brand" href="{{ url('/home') }}">
-                <img src="img/logo_s.PNG" alt="logo" width="100px">     SISTEMA DE VENTAS
+                <img src="img/logo_s.PNG" alt="" width="100px">     SISTEMA DE VENTAS
             </a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                 <span class="navbar-toggler-icon"></span>
@@ -41,7 +41,7 @@
                 <!-- Left Side Of Navbar -->
                 @if(Auth::check())
                 <ul class="navbar-nav p-3">
-                    @role('admin')
+
                     <li class="nav-item dropdown px-4">
                         <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                             <i class="fa fa-cog fa-lg"></i>  {{ __('File') }}
@@ -84,12 +84,18 @@
                             @endcan
                             @can('users.index')
                                 <a class="dropdown-item" href="{{ route('users.index') }}">
-                                    <i class="fa fa-users fa-lg fa-fw"></i>  {{ __('Usuarios') }}
+                                    <i class="fa fa-users fa-lg fa-fw"></i>  {{ __('Roles por Usuario') }}
                                 </a>
                             @endcan
+                            @can('roles.index')
+                                <a class="dropdown-item" href="{{ route('roles.index') }}">
+                                    <i class="fa fa-user-secret fa-lg fa-fw"></i>  {{ __('Permisos por Rol') }}
+                                </a>
+                            @endcan
+
                         </div>
                     </li>
-                    @endrole
+
                     <li class="nav-item dropdown px-4">
                         <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                             <i class="fa fa-cart-arrow-down fa-lg fa-fw"></i>  {{ __('Procesos') }}
@@ -114,17 +120,17 @@
                         <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                             @can('reportes.r1')
                                 <a class="dropdown-item" href=" {{ route('reportes.r1') }} ">
-                                    <i class="fa fa-file-pdf-o fa-lg fa-fw"></i>  {{ __('Productos vendidos') }}
+                                    <i class="fa fa-file-pdf-o fa-lg fa-fw"></i>  {{ __('Artículos vendidos') }}
                                 </a>
                             @endcan
                             @can('reportes.r2')
                                 <a class="dropdown-item" href=" {{ route('reportes.r2') }} ">
-                                    <i class="fa fa-file-pdf-o fa-lg fa-fw"></i>  {{ __('Precios de productos') }}
+                                    <i class="fa fa-file-pdf-o fa-lg fa-fw"></i>  {{ __('Precios de artículos') }}
                                 </a>
                             @endcan
                             @can('reportes.r3')
                                 <a class="dropdown-item" href=" {{ route('reportes.r3') }} ">
-                                    <i class="fa fa-file-pdf-o fa-lg fa-fw"></i>  {{ __('Productos sin stock') }}
+                                    <i class="fa fa-file-pdf-o fa-lg fa-fw"></i>  {{ __('Artículos sin stock') }}
                                 </a>
                             @endcan
                             @can('reportes.r4')
@@ -154,7 +160,7 @@
                             @endcan
                             @can('reportes.r9')
                                 <a class="dropdown-item" href=" {{ route('reportes.r9') }} ">
-                                    <i class="fa fa-file-pdf-o fa-lg fa-fw"></i>  {{ __('Productos por categoria') }}
+                                    <i class="fa fa-file-pdf-o fa-lg fa-fw"></i>  {{ __('Artículos por categoria') }}
                                 </a>
                             @endcan
                             @can('reportes.r10')

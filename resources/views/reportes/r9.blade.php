@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Productos por Categoria</title>
+    <title>Artículos por Categoria</title>
     <style>
         body {
             position: relative;
@@ -63,8 +63,8 @@
 </head>
 <body>
     <div id="logo"> <img src="img/logo_s.png" alt="logo DSI"> </div>
-    <h2>Productos por Categoria</h2>
-    <p>Reporte de productos ordenados alfabeticamente por categoria</p>
+    <h2>Artículos por Categoria</h2>
+    <p>Reporte de artículos ordenados alfabeticamente por categoria</p>
     <br><br>
     <table>
         <tr>

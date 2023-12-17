@@ -11,8 +11,9 @@ use App\Models\SaleDetail;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\Auth;
-
-use App\Http\Controllers\DB;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\View;
+use Illuminate\Support\Facades\App;
 use Barryvdh\DomPDF\Facade\Pdf;
 
 /**
@@ -93,8 +94,8 @@ class SaleController extends Controller
             $subtotal += $saleDetail->quantity * $saleDetail->price;
         }
 
-        $view = \View::make('sale/pdf',compact('sale', 'subtotal', 'saleDetails'))->render();
-            $pdf = \App::make('dompdf.wrapper');
+        $view = View::make('sale/pdf',compact('sale', 'subtotal', 'saleDetails'))->render();
+            $pdf = App::make('dompdf.wrapper');
             $pdf->loadHTML($view);
             return $pdf->stream('informe'.'.pdf');
     }

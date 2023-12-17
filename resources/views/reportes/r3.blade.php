@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Productos sin Stock</title>
+    <title>Artículos sin Stock</title>
     <style>
         body {
             position: relative;
@@ -63,8 +63,8 @@
 </head>
 <body>
     <div id="logo"> <img src="img/logo_s.png" alt="logo DSI"> </div>
-    <h2>Productos sin Stock</h2>
-    <p>Reporte de productos sin stock</p>
+    <h2>Artículos sin Stock</h2>
+    <p>Reporte de artículos sin stock</p>
     <br><br>
     <table>
         <tr>

@@ -18,10 +18,10 @@
 
 
                                 <div class="float-right">
+                                    @can('articles.create')
                                     <a href="{{ route('api_articulos') }}" class="btn btn-dark text-white btn-sm float-right"  data-placement="left">
                                         {{ __('JSON') }}
                                     </a>
-                                    @can('articles.create')
                                     <a href="{{ route('articles.create') }}" class="btn btn-primary btn-sm float-right"  data-placement="left">
                                     {{ __('Create New') }}
                                     </a>

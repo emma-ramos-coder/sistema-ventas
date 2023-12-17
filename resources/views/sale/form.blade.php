@@ -21,32 +21,23 @@
 
         <div class="mb-3 row">
             <div class="col form-group">
-                <label for="article_id">Producto</label>
+                <label for="article_id">Artículo</label>
                 <select class="form-control" name="article_id" id="article_id">
-                    <option value="" selected disabled>--Seleccione un producto--</option>
+                    <option value="" selected disabled>--Seleccione un artículo--</option>
                     @foreach($articles as $article)
                     <option value="{{$article->id}}_{{$article->stock}}_{{$article->sale_price}}">{{$article->description}}</option>
                     @endforeach
                 </select>
             </div>
             <div class="col form-group">
-               {{--  {{ Form::label('Stock') }}
-                {{ Form::number('stock', '', ['class' => 'form-control' . ($errors->has('stock') ? ' is-invalid' : ''), 'placeholder' => 'Stock', 'disabled' => 'disabled']) }}
-                {!! $errors->first('stock', '<div class="invalid-feedback">:message</div>') !!} --}}
                 <label for="stock">Stock</label>
                 <input type="text" id="stock" name="stock" class="form-control" disabled>
             </div>
             <div class="col form-group">
-                {{-- {{ Form::label('Cantidad') }}
-                {{ Form::number('quantity', $sale->quantity, ['class' => 'form-control' . ($errors->has('quantity') ? ' is-invalid' : ''), 'placeholder' => 'Cantidad']) }}
-                {!! $errors->first('quantity', '<div class="invalid-feedback">:message</div>') !!} --}}
                 <label for="quantity">Cantidad</label>
                 <input type="number" id="quantity" name="quantity" class="form-control" min="1">
             </div>
             <div class="col form-group">
-                {{-- {{ Form::label('Precio de venta') }}
-                {{ Form::number('sale_price', '', ['class' => 'form-control' . ($errors->has('sale_price') ? ' is-invalid' : ''), 'placeholder' => 'Precio de venta', 'step' => '0.01', 'disabled' => 'disabled']) }}
-                {!! $errors->first('sale_price', '<div class="invalid-feedback">:message</div>') !!} --}}
                 <label for="price">Precio de venta</label>
                 <input type="text" id="price" name="price" class="form-control"  disabled>
             </div>
@@ -61,7 +52,7 @@
                     <thead>
                         <tr>
                             <th>Eliminar</th>
-                            <th>Producto</th>
+                            <th>Artículo</th>
                             <th>Precio de venta (S/)</th>
                             <th>Cantidad</th>
                             <th class="text-end">Subtotal (S/)</th>
@@ -98,17 +89,6 @@
                 </table>
             </div>
         </div>
-        {{-- <div class="form-group">
-            {{ Form::label('Total factura') }}
-            {{ Form::number('total_invoice', number_format($sale->total_invoice, 2, '.', ''), ['class' => 'form-control' . ($errors->has('total_invoice') ? ' is-invalid' : ''), 'placeholder' => 'Total Factura', 'step' => '0.01']) }}
-            {!! $errors->first('total_invoice', '<div class="invalid-feedback">:message</div>') !!}
-        </div>
-        <div class="form-group">
-            {{ Form::label('IGV') }}
-            {{ Form::number('igv', number_format($sale->igv, 2, '.', ''), ['class' => 'form-control' . ($errors->has('igv') ? ' is-invalid' : ''), 'placeholder' => 'IGV', 'step' => '0.01']) }}
-            {!! $errors->first('igv', '<div class="invalid-feedback">:message</div>') !!}
-        </div> --}}
-
     </div>
 
 </div>

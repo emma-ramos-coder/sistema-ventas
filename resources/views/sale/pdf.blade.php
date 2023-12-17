@@ -155,7 +155,7 @@
                 <thead>
                     <tr id="fa">
                         <th align="left">CANTIDAD</th>
-                        <th align="left">PRODUCTO</th>
+                        <th align="left">ARTÍCULO</th>
                         <th align="left">PRECIO VENTA (S/)</th>
                         <th align="right">SUBTOTAL (S/)</th>
                     </tr>
