@@ -80,8 +80,6 @@ class ReportController extends Controller
             ->join('sales', 'customers.id', '=', 'sales.customer_id')
             ->select(['customers.document_number', 'customers.surnames','customers.names',DB::raw('SUM(sales.total_invoice) as total')])
             ->groupBy('customers.document_number')
-            ->groupBy('customers.surnames')
-            ->groupBy('customers.names')
             ->orderByDesc('total')
             ->orderBy('customers.surnames')
             ->orderBy('customers.names')
@@ -100,7 +98,6 @@ class ReportController extends Controller
             ->join('sale_details', 'articles.id', '=', 'sale_details.article_id')
             ->select(['suppliers.document_number', 'suppliers.tradename',DB::raw('FORMAT(SUM(sale_details.quantity*sale_details.price), 2) as total')])
             ->groupBy('suppliers.document_number')
-            ->groupBy('suppliers.tradename')
             ->orderByDesc(DB::raw('SUM(sale_details.quantity*sale_details.price)'))
             ->orderBy('suppliers.tradename')
             ->get();

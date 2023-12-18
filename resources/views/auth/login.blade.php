@@ -17,16 +17,16 @@
                         @csrf
 
                         <div class="row m-2">
-                            <div class="col-2 px-0 border text-center rounded-2">
+                            <div class="col-2 p-0 border text-center rounded-2">
                                 <i class="fa fa-envelope fa-lg"></i>
                             </div>
-                            <div class="col-10 px-0">
-                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required  placeholder="{{ __('Email Address') }}" autocomplete="email" autofocus>
+                            <div class="col-10 p-0">
+                                <input id="email" type="email" class="form-control @error('email') is-invalid @enderror" name="email" value="{{ old('email') }}" required autocomplete="email" placeholder="{{ __('Email Address') }}" autofocus>
 
                                 @error('email')
-                                    <div class="alert alert-danger" role="alert">
+                                    <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
-                                    </div>
+                                    </span>
                                 @enderror
                             </div>
 
@@ -40,9 +40,9 @@
                                 <input id="password" type="password" class="form-control @error('password') is-invalid @enderror" name="password" required autocomplete="current-password" placeholder="{{ __('Password') }}">
 
                                 @error('password')
-                                    <div class="alert alert-danger" role="alert">
+                                    <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
-                                    </div>
+                                    </span>
                                 @enderror
                             </div>
                         </div>
