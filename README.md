@@ -7,7 +7,7 @@
 <p>Cuenta invitado, correo: invitado@gmail.com contraseña: 123456789 </p>
 
 <img src="public/img/sistema.PNG">
-<img src="public/img/factura.PNG">
+<img src="public/img/Factura.PNG">
 
 <p align="center">
 <a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
