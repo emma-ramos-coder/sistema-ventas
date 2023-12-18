@@ -21,13 +21,13 @@ function agregar(){
     var article_id = datosProducto[0];
     var article = $("#article_id option:selected").text();
     var quantity = $("#quantity").val();
-    var price = parseFloat($("#price").val());
+    var price = $("#price").val();
     var stock = $("#stock").val();
     if(article_id!="" && quantity!="" && quantity>0 && price!=""){
         if (parseInt(stock) >= parseInt(quantity)){
-            subtotal[cont] = parseFloat(quantity * price).toFixed(2);
+            subtotal[cont] = (quantity * price);
             total = total + subtotal[cont];
-            var fila = '<tr class="selected" id="fila'+cont+'"><td><button type="button" class="btn btn-danger btn-sm" onclick="eliminar('+cont+'); "><i class="fa fa-times"></i>  Eliminar</button></td> <td><input type="hidden" name="article_id[]" value="'+article_id+'">'+article+'</td> <td><input type="hidden" name="price[]" value="'+parseFloat(price).toFixed(2)+'"><input class="form-control" type="number" value="'+parseFloat(price).toFixed(2)+'" disabled></td><td><input type="hidden" name="quantity[]" value="'+quantity+'"><input type="number" value="'+quantity+'" class="form-control" disabled></td><td class="text-end">'+parseFloat(subtotal[cont]).toFixed(2)+'</td></tr>';
+            var fila = '<tr class="selected" id="fila'+cont+'"><td><button type="button" class="btn btn-danger btn-sm" onclick="eliminar('+cont+'); "><i class="fa fa-times"></i>  Eliminar</button></td> <td><input type="hidden" name="article_id[]" value="'+article_id+'">'+article+'</td> <td><input type="hidden" name="price[]" value="'+price+'"><input class="form-control" type="number" value="'+parseFloat(price).toFixed(2)+'" disabled></td><td><input type="hidden" name="quantity[]" value="'+quantity+'"><input type="number" value="'+quantity+'" class="form-control" disabled></td><td class="text-end">S/ '+parseFloat(subtotal[cont]).toFixed(2)+'</td></tr>';
             cont++
             limpiar();
             totales();
@@ -50,9 +50,9 @@ function totales(){
     var total_impuesto = total * 0.18;
     var total_pagar_html = total + total_impuesto;
     $("#total_impuesto").html(total_impuesto.toFixed(2));
-    $("#igv").html(total_impuesto.toFixed(2));
+    $("#igv").val(total_impuesto.toFixed(2));
     $("#total_pagar_html").html(total_pagar_html.toFixed(2));
-    $("#total_invoice").html(total_pagar_html.toFixed(2));
+    $("#total_invoice").val(total_pagar_html.toFixed(2));
 }
 
 function evaluar(){
